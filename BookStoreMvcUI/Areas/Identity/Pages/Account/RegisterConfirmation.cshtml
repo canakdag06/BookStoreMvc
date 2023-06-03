@@ -1,0 +1,23 @@
+﻿@page
+@model RegisterConfirmationModel
+@{
+    ViewData["Title"] = "Kayıt Onayı";
+}
+
+<h1>@ViewData["Title"]</h1>
+@{
+    if (@Model.DisplayConfirmAccountLink)
+    {
+<p>
+    Bu uygulamanın şu anda kayıtlı gerçek bir e-posta göndericisi yok. <br>
+    Normalde bu e-mail olarak gönderilecekti ama siz yine de şuraya tıklayın: <br> <a id="confirm-link" href="@Model.EmailConfirmationUrl">Tık</a>
+</p>
+    }
+    else
+    {
+<p>
+        Hesabınızı onaylamak için lütfen email adresinizi kontrol edin.
+</p>
+    }
+}
+

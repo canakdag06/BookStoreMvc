@@ -1,0 +1,88 @@
+﻿@model BookDisplayModel
+@{
+
+}
+<link rel="stylesheet" href="~/@(nameof(BookStoreMvcUI)).styles.css" />
+<div class="my-5">
+    <form asp-action="Index" class="row row-cols-lg-auto g-3 align-items-center">
+    <div class="col-12">
+    <label class="visually-hidden" for="genreId">Tür</label>
+    
+            <select class="form-select" id="genreId" name="genreId">
+                <option selected>Türler</option>
+                @foreach(var genre in Model.Genres)
+                {
+                    <option selected="@(genre.Id == Model.GenreId)" value="@genre.Id">@genre.GenreName</option>
+                }
+            </select>
+    </div>
+
+    <div class="col-12">
+        <label class="visually-hidden" for="sterm">Ada Göre Ara</label>
+        <div class="input-group">
+        <div class="input-group-text"></div>
+        <input type="text" class="form-control" value="@Model.STerm" id="sterm" name="sterm" placeholder="Ada Göre Ara">
+        </div>
+    </div>
+
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Ara</button>
+        <a href="/Home/Index" class="btn btn-dark">Sıfırla</a>
+    </div>
+    </form>
+</div>
+
+<div class="w-100 mt-4 d-flex flex-wrap">       @*DISPLAYING THE BOOK COVERS*@
+    @foreach (var book in Model.Books)
+    {
+        <div class="card mx-3 mb-4" style="width: 14rem;">
+            @if(string.IsNullOrEmpty(book.Image))
+            {
+                <img style="width:60%; height:180px; display:block; margin: 10px auto" src="/images/no-image.png"  alt="...">
+            }
+            else
+            {
+                <img style="width:60%; height:180px; display:block; margin: 10px auto" src="/images/@book.Image"  alt="...">
+            }
+            <div class="card-body">
+                <h5 class="card-title">@book.BookName</h5>
+                <p class="card-text">
+                    @book.AuthorName <br />
+                    @book.GenreName <br />
+                    @book.Price
+                </p>
+                <button type="button" onclick="add(@book.Id)" class="btn btn-primary custom-button">Sepete Ekle</button>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts
+{
+    <script>
+        async function add(bookId){
+            var usernameEl = document.getElementById("username");
+            if (usernameEl == null) {
+                window.location.href = "/Identity/Account/Login";
+                //var username = usernameEl.innerText;
+                //if (username.length < 1)
+                //{
+                //    window.location.href = "/Identity/Account/Login";
+                //}
+            }
+            try{
+                var response = await fetch(`/Cart/AddItem?bookId=${bookId}`);
+                if(response.status == 200)
+                {
+                var result = await response.json();
+                var cartCountEl = document.getElementById("cartCount");
+                cartCountEl.innerHTML = result;
+                window.location.href = "#cartCount";
+                }
+            }
+            catch(err) {
+                console.log(err);
+            }
+        }
+    </script>
+}

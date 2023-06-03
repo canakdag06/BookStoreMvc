@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Order>
+@{
+}
+
+<div style="width:100%" class="mt-5">
+    <a href="/Identity/Account/Manage" class="btn btn-primary my-2">Geri</a>
+
+    <h4>Siparişlerim</h4>
+    @if (Model != null && Model.Count() > 0)
+    {
+        <table class="table table-striped">
+            <tr>
+                <th>Sipariş Tarihi</th>
+                <th>Sipariş Durumu</th>
+            </tr>
+            @foreach(var order in Model)
+            {
+                <tr>
+                    <td>@order.CreateDate.ToString("dd-MM-yyyy")</td>
+                    <td>@order.OrderStatus.StatusName</td>
+                </tr>
+                @if (order.OrderDetail != null && order.OrderDetail.Count > 0)
+                {
+                    <tr>
+                        <td>
+                            <table class="table table-striped">
+                                <tr>
+                                    <td>
+                                        Toplam:
+                                    </td>
+                                    <td>
+                                        @(order.OrderDetail.Select(item => item.Book.Price * item.Quantity).Sum())
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Kitap</th>
+                                    <th>Görsel</th>
+                                    <th>Tür</th>
+                                    <th>Birim Fiyatı(TL)</th>
+                                    <th>Toplam Tutar</th>
+                                </tr>
+                                @foreach (var item in order.OrderDetail)
+                                {
+                                    <tr>
+                                        <td>@item.Book.BookName</td>
+                                        <td>
+                                            @if (string.IsNullOrEmpty(item.Book.Image))
+                                            {
+                                                <img src="/images/no-image.png" style="width:80px;height:100px" />
+                                            }
+                                            else
+                                            {
+                                                <img src="/images/@item.Book.Image" style="width:80px;height:100px" />
+                                            }
+                                        </td>
+                                        <td>@item.Book.Genre.GenreName</td>
+                                        <td>@item.Book.Price x @item.Quantity</td>
+                                        <td>@(item.Book.Price * item.Quantity)</td>
+                                    </tr>
+                                }
+                            </table>
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+    }
+    else
+    {
+        <h5>Mevcut Sipariş Yok</h5>
+    }
+</div>
