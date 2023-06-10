@@ -3,6 +3,17 @@
 @inject UserManager<IdentityUser> UserManager
 
 <ul class="navbar-nav">
+    @if(User.IsInRole("Admin"))
+    {
+        <li class="nav-item">
+            <a class="nav-link" href="/Cart/GetUserCart">
+                @*<span id="cartCount" class="badge bg-info">0</span>*@
+                <i class="bi bi-cart text-white m-5">Sepete Git</i>
+            </a>
+        </li>
+    }
+
+
 @if (SignInManager.IsSignedIn(User))
 {
     <li class="nav-item">

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 
 namespace BookStoreMvcUI.Models
 {
@@ -8,10 +9,12 @@ namespace BookStoreMvcUI.Models
     {
         public int Id { get; set; }
 
-        [Required]
+        [DisplayName("Tür Adı")]
+        [Required(ErrorMessage = "Tür Adı boş bırakılamaz.")]
         [MaxLength(40)]
         public string GenreName { get; set; }
 
-        public List<Book> Books { get; set; }
+        public List<Book> Books { get; set; }   
+        // GenreController Save()'de burayı not required yapamadığım için IsNullorEmpty metodu kullandım.
     }
 }
