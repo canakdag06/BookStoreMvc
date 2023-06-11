@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BookStoreMvcUI.Models
@@ -8,20 +9,25 @@ namespace BookStoreMvcUI.Models
     {
         public int Id { get; set; }
 
-        [Required]
+        [DisplayName("Kitap Adı")]
+        [Required(ErrorMessage = "Kitap Adı boş bırakılamaz.")]
         [MaxLength(40)]
         public string? BookName { get; set; }
 
-        [Required]
+        [DisplayName("Yazar Adı")]
+        [Required(ErrorMessage = "Yazar Adı boş bırakılamaz.")]
         [MaxLength(40)]
         public string? AuthorName { get; set; }
 
-        [Required]
+        [DisplayName("Fiyat")]
+        [Required(ErrorMessage = "Fiyat boş bırakılamaz.")]
         public double Price { get; set; }
 
+        [DisplayName("Kitap Kapağı")]
         public string? Image { get; set; }
 
-        [Required]
+        [DisplayName("Tür ID")]
+        [Required(ErrorMessage = "Tür ID boş bırakılamaz.")]
         public int GenreId { get; set; }
         
         public Genre Genre { get; set; }

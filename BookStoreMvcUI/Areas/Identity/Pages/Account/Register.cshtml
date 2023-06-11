@@ -32,37 +32,13 @@
     </div>
     <div class="col-md-6 col-md-offset-2 mx-5">
         <section>
-            <h1 class="fw-bold">Kitapçı'ya Hoş Geldiniz</h1>
+            <h1 class="fw-bold mt-4">Kitapçı'ya Hoş Geldiniz</h1>
             <hr />
             <h2>
                 Kitapçı, en kaliteli kitapların en ucuza satıldığı bir internet mağazasıdır.
             </h2>
             <span></span>
             <img class="img-responsive center-block d-block mx-auto my-5 table-bordered" src="/images/kitapci.png" />
-            @*@{
-                if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                {
-                    <div>
-                        <p>
-                            There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">article
-                            about setting up this ASP.NET application to support logging in via external services</a>.
-                        </p>
-                    </div>
-                }
-                else
-                {
-                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                        <div>
-                            <p>
-                                @foreach (var provider in Model.ExternalLogins!)
-                                {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                                }
-                            </p>
-                        </div>
-                    </form>
-                }
-            }*@
         </section>
     </div>
 </div>

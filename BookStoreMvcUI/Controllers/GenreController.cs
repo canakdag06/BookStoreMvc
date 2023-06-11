@@ -44,7 +44,7 @@ namespace BookStoreMvcUI.Controllers
                     _db.Genres.Update(model);
                 }
                 _db.SaveChanges();
-                TempData["success"] = "Yeni Tür Başarıyla Kaydedildi";
+                TempData["success"] = "Tür Kaydedildi";
                 return RedirectToAction("Index");
             }
             TempData["error"] = "Tür Kaydedilemedi";

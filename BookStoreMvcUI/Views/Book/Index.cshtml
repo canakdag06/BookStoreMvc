@@ -1,0 +1,59 @@
+﻿@model IEnumerable<BookStoreMvcUI.Models.Book>
+
+<h2 class="m-5">
+    Kitapları Düzenle
+</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Yeni Kitap Ekle</a>
+</p>
+
+@if (TempData["success"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["success"]
+    </div>
+}
+
+@if (TempData["error"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["error"]
+    </div>
+}
+
+<table class="table table-striped">
+    <tr>
+        <th>Id</th>
+        <th>Ad</th>
+        <th>Fiyat</th>
+        <th>Kapak</th>
+        <th>Yazar</th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.BookName</td>
+            <td>@item.Price</td>
+            <td>
+                @if (string.IsNullOrEmpty(item.Image))
+                {
+                    <img style="width:60%; height:180px; display:block; margin: 10px auto;" src="@Url.Content("~/Images/no-image.png")" alt="Resim" />
+                }
+                else
+                {
+                    <img style="width:60%; height:180px; display:block; margin: 10px auto;" src="@Url.Content("~/Images/" + item.Image)" alt="Resim" />
+                }
+            </td>
+            <td>@item.AuthorName</td>
+            <td class="d-flex justify-content-center" style="height:218px" box-sizing: border-box;>
+                <a asp-action="Edit" asp-route-id="@item.Id" 
+                class="btn btn-info me-2 ms-2" style="height: 50px; margin-top: 70px">Düzenle</a>
+                <a asp-action="Delete" asp-route-id="@item.Id"
+                class="btn btn-danger me-2 ms-2" style="height: 50px; margin-top: 70px">Sil</a>
+            </td>
+        </tr>
+    }
+</table>

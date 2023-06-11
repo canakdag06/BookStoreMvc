@@ -28,6 +28,11 @@
     <div class="col-12">
         <button type="submit" class="btn btn-primary">Ara</button>
         <a href="/Home/Index" class="btn btn-dark">Sıfırla</a>
+            @if (User.IsInRole("Admin"))
+            {
+                <a href="/Book/Index" class="btn btn-success">Kitapları Düzenle</a>
+                <a href="/Genre/Index" class="btn btn-info">Türleri Düzenle</a>
+            }
     </div>
     </form>
 </div>
@@ -64,11 +69,6 @@
             var usernameEl = document.getElementById("username");
             if (usernameEl == null) {
                 window.location.href = "/Identity/Account/Login";
-                //var username = usernameEl.innerText;
-                //if (username.length < 1)
-                //{
-                //    window.location.href = "/Identity/Account/Login";
-                //}
             }
             try{
                 var response = await fetch(`/Cart/AddItem?bookId=${bookId}`);
